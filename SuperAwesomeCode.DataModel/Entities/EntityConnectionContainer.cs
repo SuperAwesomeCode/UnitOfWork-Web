@@ -6,15 +6,19 @@ using System.Reflection;
 namespace SuperAwesomeCode.DataModel.Entities
 {
 	/// <summary>
-	/// 
+	/// Class that contains an entity connection and constructor information.
 	/// </summary>
 	public sealed class EntityConnectionContainer
 	{
+		private ConstructorInfo _ConstructorInfo;
+
+		private EntityConnectionSettings _Settings;
+
 		/// <summary>
-		/// Initializes a new instance of the <see cref="EntityConnectionSettings"/> class.
+		/// Initializes a new instance of the <see cref="EntityConnectionContainer"/> class.
 		/// </summary>
 		/// <param name="objectContextType">Type of the object context.</param>
-		/// <param name="settings">The settings.</param>
+		/// <param name="settings">The entity connection settings.</param>
 		private EntityConnectionContainer(Type objectContextType, EntityConnectionSettings settings)
 		{
 			this._Settings = settings;
@@ -22,10 +26,6 @@ namespace SuperAwesomeCode.DataModel.Entities
 
 			this.ObjectContextType = objectContextType;
 		}
-
-		private ConstructorInfo _ConstructorInfo;
-
-		private EntityConnectionSettings _Settings;
 
 		public Type ObjectContextType { get; private set; }
 
@@ -59,11 +59,11 @@ namespace SuperAwesomeCode.DataModel.Entities
 		/// <summary>
 		/// Gets the object context.
 		/// </summary>
+		/// <param name="context">The context.</param>
 		/// <returns></returns>
 		public ObjectContext GetObjectContext(Ninject.Activation.IContext context)
 		{
-			var x  = this._ConstructorInfo.Invoke(new object[] { this._Settings.BuildConnection() }) as ObjectContext;
-			return x;
+			return this._ConstructorInfo.Invoke(new object[] { this._Settings.BuildConnection() }) as ObjectContext;
 		}
 	}
 }

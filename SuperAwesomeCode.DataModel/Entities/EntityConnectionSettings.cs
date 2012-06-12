@@ -1,6 +1,6 @@
-﻿using System.Data.EntityClient;
+﻿using System;
+using System.Data.EntityClient;
 using System.Data.SqlClient;
-using System;
 
 namespace SuperAwesomeCode.DataModel.Entities
 {
@@ -9,6 +9,8 @@ namespace SuperAwesomeCode.DataModel.Entities
 	/// </summary>
 	public sealed class EntityConnectionSettings
 	{
+		private bool _IsAttachedDbFile;
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="EntityConnectionSettings"/> class.
 		/// </summary>
@@ -25,8 +27,6 @@ namespace SuperAwesomeCode.DataModel.Entities
 
 			this._IsAttachedDbFile = this.DatabaseName.StartsWith("|DataDirectory|", StringComparison.OrdinalIgnoreCase);
 		}
-
-		private bool _IsAttachedDbFile;
 
 		/// <summary>
 		/// Gets the name of the provider.
@@ -51,8 +51,6 @@ namespace SuperAwesomeCode.DataModel.Entities
 		/// <summary>
 		/// Builds the connection.
 		/// </summary>
-		/// <param name="entityConnectionSettings">The entity connection settings.</param>
-		/// <param name="metaDataRes">The meta data res.</param>
 		/// <returns></returns>
 		internal EntityConnection BuildConnection()
 		{

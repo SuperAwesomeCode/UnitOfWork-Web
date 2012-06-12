@@ -1,7 +1,6 @@
 ﻿using System;
 using Ninject;
 using Ninject.Modules;
-using System.Collections.Generic;
 
 namespace SuperAwesomeCode.DataModel.Entities
 {
@@ -16,9 +15,9 @@ namespace SuperAwesomeCode.DataModel.Entities
 		/// <summary>
 		/// Initializes the application.
 		/// </summary>
-		/// <param name="entityConnectionContainers">The entity connection containers.</param>
 		/// <param name="ninjectModule">Custom NinjectModule.</param>
 		/// <param name="ninjectSettings">Custom NinjectSettings.</param>
+		/// <param name="entityConnectionContainers">The entity connection containers.</param>
 		public static void Initialize(
 			INinjectModule ninjectModule = null,
 			INinjectSettings ninjectSettings = null,

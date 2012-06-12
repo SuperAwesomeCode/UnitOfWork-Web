@@ -1,17 +1,28 @@
 ﻿using System;
-using System.Data.Objects;
-using System.Transactions;
-using SuperAwesomeCode.Security;
 using System.Collections.Generic;
+using System.Data.Objects;
 using System.Linq;
+using System.Transactions;
 
 namespace SuperAwesomeCode.DataModel.Entities
 {
 	/// <summary>A classed used to manage all of the data contexts.</summary>
 	public class BatchedEntityDataContext : IDisposable
 	{
-		//private List<Type> _ObjectContextTypes;
 		private Dictionary<Type, ObjectContext> _Dictionary;
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="BatchedEntityDataContext"/> class.
+		/// </summary>
+		/// <param name="objectContextsTypes">The object contexts types.</param>
+		public BatchedEntityDataContext(IEnumerable<Type> objectContextsTypes)
+		{
+			this._Dictionary = new Dictionary<Type, ObjectContext>();
+			foreach (var type in objectContextsTypes)
+			{
+				this._Dictionary.Add(type, null);
+			}
+		}
 
 		/// <summary>
 		/// Saves all of the Contexts in a TransactionScopr.
@@ -61,19 +72,6 @@ namespace SuperAwesomeCode.DataModel.Entities
 				{
 					keyValue.Value.Dispose();
 				}
-			}
-		}
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="BatchedEntityDataContext"/> class.
-		/// </summary>
-		/// <param name="objectContextsTypes">The object contexts types.</param>
-		public BatchedEntityDataContext(IEnumerable<Type> objectContextsTypes)
-		{
-			this._Dictionary = new Dictionary<Type, ObjectContext>();
-			foreach (var type in objectContextsTypes)
-			{
-				this._Dictionary.Add(type, null);
 			}
 		}
 	}

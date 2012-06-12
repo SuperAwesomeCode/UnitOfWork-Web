@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Ninject.Modules;
 using System.Linq;
+using Ninject.Modules;
 
 namespace SuperAwesomeCode.DataModel.Entities
 {
@@ -9,7 +9,7 @@ namespace SuperAwesomeCode.DataModel.Entities
 	/// </summary>
 	internal class EntityDataApplicationModule : NinjectModule
 	{
-		internal IEnumerable<EntityConnectionContainer> _EntityConnectionContainers;
+		private IEnumerable<EntityConnectionContainer> _EntityConnectionContainers;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="EntityDataApplicationModule"/> class.
