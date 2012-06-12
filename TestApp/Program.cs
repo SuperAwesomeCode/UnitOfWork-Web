@@ -5,11 +5,14 @@ using SuperAwesomeCode;
 using SuperAwesomeCode.DataModel;
 using SuperAwesomeCode.DataModel.Entities;
 using TestApp.Entities;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace TestApp
 {
 	internal class Program
 	{
+		//TODO: Add test to UnitTests project. I have Mocked objects already, just not checked in.
+		// Also IoC as a static may cause an issue when dealing with different application types.
 		private static void Main(string[] args)
 		{
 			try
@@ -34,8 +37,7 @@ namespace TestApp
 
 					unitOfWork.Save();
 				}
-
-				
+		
 				//Query Example
 				using (var unitOfWork = IoC.Resolve<IUnitOfWork>())
 				{
@@ -43,6 +45,8 @@ namespace TestApp
 					var users = userRepository
 						.Queryable
 						.ToList();
+
+					Assert.IsTrue(users.Any());
 				}
 
 			}
