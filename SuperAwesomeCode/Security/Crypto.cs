@@ -18,15 +18,9 @@ namespace SuperAwesomeCode.Security
 		/// <returns></returns>
 		public static string EncryptStringAes(string plainText, string sharedSecret, string salt)
 		{
-			if (string.IsNullOrEmpty(plainText))
-			{
-				throw new ArgumentNullException("plainText");
-			}
-
-			if (string.IsNullOrEmpty(sharedSecret))
-			{
-				throw new ArgumentNullException("sharedSecret");
-			}
+			Guard.AgainstNullOrEmpty(plainText);
+			Guard.AgainstNullOrEmpty(sharedSecret);
+			Guard.AgainstNullOrEmpty(salt);
 
 			string returnValue = null;
 			AesManaged aesManaged = null;
@@ -83,15 +77,9 @@ namespace SuperAwesomeCode.Security
 		/// <returns></returns>
 		public static string DecryptStringAes(string cipherText, string sharedSecret, string salt)
 		{
-			if (string.IsNullOrEmpty(cipherText))
-			{
-				throw new ArgumentNullException("cipherText");
-			}
-
-			if (string.IsNullOrEmpty(sharedSecret))
-			{
-				throw new ArgumentNullException("sharedSecret");
-			}
+			Guard.AgainstNullOrEmpty(cipherText);
+			Guard.AgainstNullOrEmpty(sharedSecret);
+			Guard.AgainstNullOrEmpty(salt);
 
 			// Declare the AesManaged object
 			// used to decrypt the data.

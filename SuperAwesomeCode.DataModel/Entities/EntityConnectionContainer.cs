@@ -10,8 +10,10 @@ namespace SuperAwesomeCode.DataModel.Entities
 	/// </summary>
 	public sealed class EntityConnectionContainer
 	{
+		/// <summary>Cached constructor info of the EntityConnection.</summary>
 		private ConstructorInfo _ConstructorInfo;
 
+		/// <summary>EntitySettings used to create the connection.</summary>
 		private EntityConnectionSettings _Settings;
 
 		/// <summary>
@@ -27,6 +29,8 @@ namespace SuperAwesomeCode.DataModel.Entities
 			this.ObjectContextType = objectContextType;
 		}
 
+		/// <summary>
+		/// Gets the type of the object context.</summary>
 		public Type ObjectContextType { get; private set; }
 
 		/// <summary>

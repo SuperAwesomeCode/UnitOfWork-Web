@@ -19,7 +19,7 @@ namespace System.Linq
 		{
 			return enumerable == null ?
 				string.Empty :
-				string.Join(delimiter, enumerable.Select(i => i.ToString()));
+				string.Join(delimiter, enumerable.Select(i => i.ToSafeString()));
 		}
 	}
 }

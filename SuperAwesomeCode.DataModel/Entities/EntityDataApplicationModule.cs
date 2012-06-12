@@ -9,6 +9,7 @@ namespace SuperAwesomeCode.DataModel.Entities
 	/// </summary>
 	internal class EntityDataApplicationModule : NinjectModule
 	{
+		/// <summary>All of the connection containers.</summary>
 		private IEnumerable<EntityConnectionContainer> _EntityConnectionContainers;
 
 		/// <summary>
@@ -36,6 +37,11 @@ namespace SuperAwesomeCode.DataModel.Entities
 			this.Bind<IUnitOfWork>().To<EntityUnitOfWork>();
 		}
 
+		/// <summary>
+		/// Obtains the BatchedEntityDataContext.
+		/// </summary>
+		/// <param name="context">The ninject context.</param>
+		/// <returns></returns>
 		private BatchedEntityDataContext ObtainBatchedDataContext(Ninject.Activation.IContext context)
 		{
 			return new BatchedEntityDataContext(this._EntityConnectionContainers.Select(i => i.ObjectContextType));

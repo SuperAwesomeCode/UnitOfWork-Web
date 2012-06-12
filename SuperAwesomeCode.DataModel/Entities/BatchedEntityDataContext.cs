@@ -9,6 +9,7 @@ namespace SuperAwesomeCode.DataModel.Entities
 	/// <summary>A classed used to manage all of the data contexts.</summary>
 	public class BatchedEntityDataContext : IDisposable
 	{
+		/// <summary>Dictionary of ObjectContext(es).</summary>
 		private Dictionary<Type, ObjectContext> _Dictionary;
 
 		/// <summary>

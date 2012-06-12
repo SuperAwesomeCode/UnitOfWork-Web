@@ -1,4 +1,6 @@
-﻿namespace System.IO
+﻿using Microsoft.Win32;
+
+namespace System.IO
 {
 	/// <summary>
 	/// Extensions for FileInfo.
@@ -20,10 +22,8 @@
 
 			try
 			{
-				//look in HKCR
-				using (var regkey = Microsoft.Win32.Registry.ClassesRoot)
+				using (var regkey = Registry.ClassesRoot)
 				{
-					//look for extension
 					var fileExtensionKey = regkey.OpenSubKey(fileInfo.Extension);
 					return fileExtensionKey.GetValue("Content Type", defaultContentType).ToString();
 				}

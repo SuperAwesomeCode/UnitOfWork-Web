@@ -9,6 +9,7 @@ namespace SuperAwesomeCode.DataModel.Entities
 	/// </summary>
 	public sealed class EntityConnectionSettings
 	{
+		/// <summary>Determines if the database is backed by a file, which needs a different connection string.</summary>
 		private bool _IsAttachedDbFile;
 
 		/// <summary>

@@ -13,7 +13,7 @@ namespace System.IO
 		/// <param name="directory"> Path of the directory to check. </param>
 		public static void CreateDirectoryIfDoesntExists(string directory)
 		{
-			Guard.AgainstNull(directory);
+			Guard.AgainstNullOrEmpty(directory);
 			if (Directory.Exists(directory))
 			{
 				return;
