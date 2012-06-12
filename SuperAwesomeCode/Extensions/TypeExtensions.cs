@@ -1,0 +1,52 @@
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.Serialization;
+
+namespace System
+{
+	/// <summary>
+	/// Extension class for Type.
+	/// </summary>
+	public static class TypeExtensions
+	{
+		public static IEnumerable<PropertyInfo> GetDataContractProperties(this Type type)
+		{
+			return type
+			  .GetProperties()
+			  .Where(i => i.GetCustomAttributes(false).FirstOrDefault(a => a is DataMemberAttribute) != null);
+		}
+
+		public static IEnumerable<string> GetDataContracttPropertyNames(this Type type)
+		{
+			return type.GetProperties()
+				.Select(i =>
+				{
+					var attribute = i.GetCustomAttributes(false).Select(a => a as DataMemberAttribute).FirstOrDefault(a => a != null);
+					if (attribute == null)
+					{
+						return null;
+					}
+
+					return string.IsNullOrEmpty(attribute.Name) ? i.Name : attribute.Name;
+				})
+				.Where(i => i != null);
+		}
+
+		public static bool IsSubclassOfRawGeneric(this Type type, Type genericType)
+		{
+			while (type != typeof(object) && type.IsClass)
+			{
+				var genericTypeDefinition = type.IsGenericType ? type.GetGenericTypeDefinition() : type;
+				if (genericType == genericTypeDefinition)
+				{
+					return true;
+				}
+
+				type = type.BaseType;
+			}
+
+			return false;
+		}
+	}
+}
