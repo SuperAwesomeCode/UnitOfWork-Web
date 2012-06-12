@@ -7,7 +7,7 @@ using System.Transactions;
 namespace SuperAwesomeCode.DataModel.Entities
 {
 	/// <summary>A classed used to manage all of the data contexts.</summary>
-	public class BatchedEntityDataContext : IDisposable
+	internal class BatchedEntityDataContext : IDisposable
 	{
 		/// <summary>Dictionary of ObjectContext(es).</summary>
 		private Dictionary<Type, ObjectContext> _Dictionary;
@@ -21,6 +21,11 @@ namespace SuperAwesomeCode.DataModel.Entities
 			this._Dictionary = new Dictionary<Type, ObjectContext>();
 			foreach (var type in objectContextsTypes)
 			{
+				if (!typeof(ObjectContext).IsAssignableFrom(type))
+				{
+					throw new ArgumentException(string.Format("{0} is not an ObjectContext.", type.FullName));
+				}
+
 				this._Dictionary.Add(type, null);
 			}
 		}
@@ -43,12 +48,14 @@ namespace SuperAwesomeCode.DataModel.Entities
 		/// <summary>
 		/// Gets the ObjectContext for the given type.
 		/// </summary>
-		/// <typeparam name="T">Type which is used to determine the ObjectContext.</typeparam>
+		/// <typeparam name="TEntityType">The type of the entity.</typeparam>
 		/// <returns></returns>
-		public ObjectContext GetObjectContext<T>()
+		public ObjectContext GetObjectContext<TEntityType>()
 		{
-			Type type = typeof(T);
-			var keyValue = this._Dictionary.Where(i => string.Equals(i.Key.Namespace, type.Namespace)).FirstOrDefault();
+			string entityTypeNamespace = typeof(TEntityType).Namespace;
+
+			//This is SingleOrDefault() because if there is a namespace collision it should fail.
+			var keyValue = this._Dictionary.Where(i => string.Equals(i.Key.Namespace, entityTypeNamespace)).SingleOrDefault();
 			if (keyValue.Key == null)
 			{
 				return null;

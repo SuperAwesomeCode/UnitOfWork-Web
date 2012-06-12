@@ -23,6 +23,11 @@ namespace SuperAwesomeCode.DataModel.Entities
 		/// <param name="settings">The entity connection settings.</param>
 		private EntityConnectionContainer(Type objectContextType, EntityConnectionSettings settings)
 		{
+			if (!typeof(ObjectContext).IsAssignableFrom(objectContextType))
+			{
+				throw new ArgumentException(string.Format("{0} is not an ObjectContext.", objectContextType.FullName));
+			}
+
 			this._Settings = settings;
 			this._ConstructorInfo = objectContextType.GetConstructor(new Type[] { typeof(EntityConnection) });
 

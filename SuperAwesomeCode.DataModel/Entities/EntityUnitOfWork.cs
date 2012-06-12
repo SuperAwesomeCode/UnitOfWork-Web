@@ -6,7 +6,7 @@ using SuperAwesomeCode.Security;
 namespace SuperAwesomeCode.DataModel.Entities
 {
 	/// <summary>Class which Implements of IUnitOfWork for Entities repositories.</summary>
-	public class EntityUnitOfWork : IUnitOfWork
+	internal class EntityUnitOfWork : IUnitOfWork
 	{
 		/// <summary>BatchedEntityDataContext for this unit of work.</summary>
 		private BatchedEntityDataContext _BatchedEntityDataContext;
