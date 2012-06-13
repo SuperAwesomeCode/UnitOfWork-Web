@@ -35,6 +35,10 @@ namespace TestApp
 						Created = DateTime.Now
 					});
 
+					var users = userRepository
+					.Queryable
+					.ToList();
+
 					unitOfWork.Save();
 				}
 		

@@ -20,49 +20,34 @@ namespace SuperAwesomeCode.Security
 			Guard.AgainstNullOrEmpty(sharedSecret);
 			Guard.AgainstNullOrEmpty(salt);
 
-			string returnValue = null;
-			AesManaged aesManaged = null;
-
 			try
 			{
-				// generate the key from the shared secret and the salt
-				Rfc2898DeriveBytes key = new Rfc2898DeriveBytes(sharedSecret, Encoding.ASCII.GetBytes(salt));
-
-				// Create a RijndaelManaged object
-				// with the specified key and IV.
-				aesManaged = new AesManaged();
-				aesManaged.Key = key.GetBytes(aesManaged.KeySize / 8);
-				aesManaged.IV = key.GetBytes(aesManaged.BlockSize / 8);
-
-				// Create a decrytor to perform the stream transform.
-				ICryptoTransform encryptor = aesManaged.CreateEncryptor(aesManaged.Key, aesManaged.IV);
-
-				// Create the streams used for encryption.
-				using (MemoryStream memoryStream = new MemoryStream())
+				using (var key = new Rfc2898DeriveBytes(sharedSecret, Encoding.ASCII.GetBytes(salt)))
+				using (var aesManaged = new AesManaged())
 				{
-					using (CryptoStream cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write))
+					aesManaged.Key = key.GetBytes(aesManaged.KeySize / 8);
+					aesManaged.IV = key.GetBytes(aesManaged.BlockSize / 8);
+
+					using (var encryptor = aesManaged.CreateEncryptor(aesManaged.Key, aesManaged.IV))
+					using (var memoryStream = new MemoryStream())
 					{
-						using (StreamWriter streamWriter = new StreamWriter(cryptoStream))
+						using (var cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write))
 						{
-							//Write all data to the stream.
-							streamWriter.Write(plainText);
+							using (var streamWriter = new StreamWriter(cryptoStream))
+							{
+								//Write all data to the stream.
+								streamWriter.Write(plainText);
+								streamWriter.Close();
+								return Convert.ToBase64String(memoryStream.ToArray());
+							}
 						}
 					}
-
-					returnValue = Convert.ToBase64String(memoryStream.ToArray());
 				}
 			}
-			finally
+			catch
 			{
-				// Clear the RijndaelManaged object.
-				if (aesManaged != null)
-				{
-					aesManaged.Clear();
-				}
+				return string.Empty;
 			}
-
-			// Return the encrypted bytes from the memory stream.
-			return returnValue;
 		}
 
 		/// <summary>Decrypt the given string.  Assumes the string was encrypted using
@@ -77,40 +62,23 @@ namespace SuperAwesomeCode.Security
 			Guard.AgainstNullOrEmpty(sharedSecret);
 			Guard.AgainstNullOrEmpty(salt);
 
-			// Declare the AesManaged object
-			// used to decrypt the data.
-			AesManaged aesManaged = null;
-
-			// Declare the string used to hold
-			// the decrypted text.
-			string plaintext = null;
-
 			try
 			{
-				// generate the key from the shared secret and the salt
-				Rfc2898DeriveBytes key = new Rfc2898DeriveBytes(sharedSecret, Encoding.ASCII.GetBytes(salt));
-
-				// Create a RijndaelManaged object
-				// with the specified key and IV.
-				aesManaged = new AesManaged();
-				aesManaged.Key = key.GetBytes(aesManaged.KeySize / 8);
-				aesManaged.IV = key.GetBytes(aesManaged.BlockSize / 8);
-
-				// Create a decrytor to perform the stream transform.
-				ICryptoTransform decryptor = aesManaged.CreateDecryptor(aesManaged.Key, aesManaged.IV);
-
-				// Create the streams used for decryption.
 				byte[] bytes = Convert.FromBase64String(cipherText);
-				using (MemoryStream memoryStream = new MemoryStream(bytes))
+				using (var key = new Rfc2898DeriveBytes(sharedSecret, Encoding.ASCII.GetBytes(salt)))
+				using (var aesManaged = new AesManaged())
 				{
-					using (CryptoStream cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read))
+					aesManaged.Key = key.GetBytes(aesManaged.KeySize / 8);
+					aesManaged.IV = key.GetBytes(aesManaged.BlockSize / 8);
+
+					using (var decryptor = aesManaged.CreateDecryptor(aesManaged.Key, aesManaged.IV))
+					using (var memoryStream = new MemoryStream(bytes))
+					using (var cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read))
+					using (var streamReader = new StreamReader(cryptoStream))
 					{
-						using (StreamReader streamReader = new StreamReader(cryptoStream))
-						{
-							// Read the decrypted bytes from the decrypting stream
-							// and place them in a string.
-							plaintext = streamReader.ReadToEnd();
-						}
+						// Read the decrypted bytes from the decrypting stream
+						// and place them in a string.
+						return streamReader.ReadToEnd();
 					}
 				}
 			}
@@ -118,16 +86,6 @@ namespace SuperAwesomeCode.Security
 			{
 				return string.Empty;
 			}
-			finally
-			{
-				// Clear the RijndaelManaged object.
-				if (aesManaged != null)
-				{
-					aesManaged.Clear();
-				}
-			}
-
-			return plaintext;
 		}
 	}
 }
