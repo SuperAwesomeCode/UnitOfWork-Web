@@ -30,17 +30,13 @@ namespace SuperAwesomeCode.Security
 
 					using (var encryptor = aesManaged.CreateEncryptor(aesManaged.Key, aesManaged.IV))
 					using (var memoryStream = new MemoryStream())
+					using (var cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write))
+					using (var streamWriter = new StreamWriter(cryptoStream))
 					{
-						using (var cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write))
-						{
-							using (var streamWriter = new StreamWriter(cryptoStream))
-							{
-								//Write all data to the stream.
-								streamWriter.Write(plainText);
-								streamWriter.Close();
-								return Convert.ToBase64String(memoryStream.ToArray());
-							}
-						}
+						//Write all data to the stream.
+						streamWriter.Write(plainText);
+						streamWriter.Close();
+						return Convert.ToBase64String(memoryStream.ToArray());
 					}
 				}
 			}
