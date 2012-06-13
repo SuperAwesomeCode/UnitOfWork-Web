@@ -14,130 +14,37 @@ namespace System
 		/// <param name="value">The value to set.</param>
 		public static void SetValue(this PropertyInfo propertyInfo, object obj, string value)
 		{
-			//TODO: Refactor
 			var propertyType = propertyInfo.PropertyType;
 
-			if (propertyType == typeof(int))
-			{
-				propertyInfo.SetValue(obj, int.Parse(value), null);
-			}
-			else if (propertyType == typeof(int?))
-			{
-				int intValue = 0;
-				if (int.TryParse(value, out intValue))
-				{
-					propertyInfo.SetValue(obj, intValue, null);
-				}
-				else
-				{
-					propertyInfo.SetValue(obj, (int?)null, null);
-				}
-			}
-			else if (propertyType == typeof(float))
-			{
-				propertyInfo.SetValue(obj, float.Parse(value), null);
-			}
-			else if (propertyType == typeof(float?))
-			{
-				float floatValue = 0;
-				if (float.TryParse(value, out floatValue))
-				{
-					propertyInfo.SetValue(obj, floatValue, null);
-				}
-				else
-				{
-					propertyInfo.SetValue(obj, (float?)null, null);
-				}
-			}
-			else if (propertyType == typeof(double))
-			{
-				propertyInfo.SetValue(obj, float.Parse(value), null);
-			}
-			else if (propertyType == typeof(double?))
-			{
-				double doubleValue = 0;
-				if (double.TryParse(value, out doubleValue))
-				{
-					propertyInfo.SetValue(obj, doubleValue, null);
-				}
-				else
-				{
-					propertyInfo.SetValue(obj, (double?)null, null);
-				}
-			}
-			else if (propertyType == typeof(decimal))
-			{
-				propertyInfo.SetValue(obj, decimal.Parse(value), null);
-			}
-			else if (propertyType == typeof(decimal?))
-			{
-				decimal decimalValue = 0;
-				if (decimal.TryParse(value, out decimalValue))
-				{
-					propertyInfo.SetValue(obj, decimalValue, null);
-				}
-				else
-				{
-					propertyInfo.SetValue(obj, (decimal?)null, null);
-				}
-			}
-			else if (propertyType == typeof(bool))
-			{
-				propertyInfo.SetValue(obj, int.Parse(value), null);
-			}
-			else if (propertyType == typeof(bool?))
-			{
-				bool boolValue = false;
-				if (bool.TryParse(value, out boolValue))
-				{
-					propertyInfo.SetValue(obj, boolValue, null);
-				}
-				else
-				{
-					propertyInfo.SetValue(obj, (bool?)null, null);
-				}
-			}
-			else if (propertyType == typeof(Guid))
-			{
-				propertyInfo.SetValue(obj, new Guid(value), null);
-			}
-			else if (propertyType == typeof(Guid?))
-			{
-				try
-				{
-					propertyInfo.SetValue(obj, new Guid(value), null);
-				}
-				catch
-				{
-					propertyInfo.SetValue(obj, (Guid?)null, null);
-				}
-			}
-			else if (propertyType == typeof(DateTime))
-			{
-				//May need to support other date formats, but in ideal world the string should specific format
-				propertyInfo.SetValue(obj, DateTime.Parse(value), null);
-			}
-			else if (propertyType == typeof(DateTime?))
-			{
-				DateTime dateTime = DateTime.MinValue;
-				if (DateTime.TryParse(value, out dateTime))
-				{
-					propertyInfo.SetValue(obj, dateTime, null);
-				}
-				else
-				{
-					propertyInfo.SetValue(obj, (DateTime?)null, null);
-				}
-			}
-			else if (propertyType.IsEnum)
+			if (propertyType.IsEnum)
 			{
 				var enumValue = EnumExtensions.ToEnum(propertyType, value);
 				propertyInfo.SetValue(obj, enumValue, null);
+				return;
 			}
-			else
+
+			if (propertyType.IsNullableT())
+			{
+				//If the proerty is nullable and the value is null or empty, do not set it.
+				if (string.IsNullOrEmpty(value))
+				{
+					return;
+				}
+
+				propertyType = Nullable.GetUnderlyingType(propertyType);
+			}
+
+			MethodInfo methodInfo = propertyType.GetMethod("TryParse", new Type[] { typeof(string), propertyType.MakeByRefType() });
+			if (methodInfo == null)
 			{
 				propertyInfo.SetValue(obj, value, null);
+				return;
 			}
+
+			//If the value is nullable and it fails to parse, this will set the default value.
+			object[] arguments = { value, null };
+			methodInfo.Invoke(null, arguments);
+			propertyInfo.SetValue(obj, arguments[1], null);
 		}
 	}
 }
