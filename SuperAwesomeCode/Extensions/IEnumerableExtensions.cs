@@ -8,9 +8,7 @@ namespace System.Linq
 	/// </summary>
 	public static class EnumerableExtensions
 	{
-		/// <summary>
-		/// Returns a delimited string of the enumerables.
-		/// </summary>
+		/// <summary>Returns a delimited string of the enumerables.</summary>
 		/// <typeparam name="T">Tpye of the enumerable.</typeparam>
 		/// <param name="enumerable">The enumerable.</param>
 		/// <param name="delimiter">The delimiter.</param>

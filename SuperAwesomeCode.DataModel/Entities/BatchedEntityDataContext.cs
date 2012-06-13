@@ -7,14 +7,12 @@ using System.Transactions;
 namespace SuperAwesomeCode.DataModel.Entities
 {
 	/// <summary>A classed used to manage all of the data contexts.</summary>
-	internal class BatchedEntityDataContext : IDisposable
+	internal sealed class BatchedEntityDataContext : IDisposable
 	{
 		/// <summary>Dictionary of ObjectContext(es).</summary>
 		private Dictionary<Type, ObjectContext> _Dictionary;
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="BatchedEntityDataContext"/> class.
-		/// </summary>
+		/// <summary>Initializes a new instance of the <see cref="BatchedEntityDataContext"/> class.</summary>
 		/// <param name="objectContextsTypes">The object contexts types.</param>
 		public BatchedEntityDataContext(IEnumerable<Type> objectContextsTypes)
 		{
@@ -30,9 +28,7 @@ namespace SuperAwesomeCode.DataModel.Entities
 			}
 		}
 
-		/// <summary>
-		/// Saves all of the Contexts in a TransactionScopr.
-		/// </summary>
+		/// <summary>Saves all of the Contexts in a TransactionScopr.</summary>
 		public void Save()
 		{
 			using (TransactionScope scope = new TransactionScope())
@@ -45,9 +41,7 @@ namespace SuperAwesomeCode.DataModel.Entities
 			}
 		}
 
-		/// <summary>
-		/// Gets the ObjectContext for the given type.
-		/// </summary>
+		/// <summary>Gets the ObjectContext for the given type.</summary>
 		/// <typeparam name="TEntityType">The type of the entity.</typeparam>
 		/// <returns></returns>
 		public ObjectContext GetObjectContext<TEntityType>()
@@ -69,9 +63,7 @@ namespace SuperAwesomeCode.DataModel.Entities
 			return this._Dictionary[keyValue.Key];
 		}
 
-		/// <summary>
-		/// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-		/// </summary>
+		/// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
 		public void Dispose()
 		{
 			foreach (var keyValue in this._Dictionary)

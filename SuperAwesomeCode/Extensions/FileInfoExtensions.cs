@@ -2,14 +2,10 @@
 
 namespace System.IO
 {
-	/// <summary>
-	/// Extensions for FileInfo.
-	/// </summary>
+	/// <summary>Extensions for FileInfo.</summary>
 	public static class FileInfoExtensions
 	{
-		/// <summary>
-		/// Gets the type of the content.
-		/// </summary>
+		/// <summary>Gets the type of the content.</summary>
 		/// <param name="fileInfo">The file info.</param>
 		/// <param name="defaultContentType">Default content type.</param>
 		/// <returns>ContentType of the File, or the defaultContentType.</returns>

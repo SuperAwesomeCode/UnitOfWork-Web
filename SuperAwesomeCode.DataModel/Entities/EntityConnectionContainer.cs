@@ -5,9 +5,7 @@ using System.Reflection;
 
 namespace SuperAwesomeCode.DataModel.Entities
 {
-	/// <summary>
-	/// Class that contains an entity connection and constructor information.
-	/// </summary>
+	/// <summary>Class that contains an entity connection and constructor information.</summary>
 	public sealed class EntityConnectionContainer
 	{
 		/// <summary>Cached constructor info of the EntityConnection.</summary>
@@ -16,9 +14,7 @@ namespace SuperAwesomeCode.DataModel.Entities
 		/// <summary>EntitySettings used to create the connection.</summary>
 		private EntityConnectionSettings _Settings;
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="EntityConnectionContainer"/> class.
-		/// </summary>
+		/// <summary>Initializes a new instance of the <see cref="EntityConnectionContainer"/> class.</summary>
 		/// <param name="objectContextType">Type of the object context.</param>
 		/// <param name="settings">The entity connection settings.</param>
 		private EntityConnectionContainer(Type objectContextType, EntityConnectionSettings settings)
@@ -38,9 +34,7 @@ namespace SuperAwesomeCode.DataModel.Entities
 		/// Gets the type of the object context.</summary>
 		public Type ObjectContextType { get; private set; }
 
-		/// <summary>
-		/// Creates the specified settings.
-		/// </summary>
+		/// <summary>Creates the specified settings.</summary>
 		/// <typeparam name="TObjectContext">The type of the object context.</typeparam>
 		/// <param name="settings">The settings.</param>
 		/// <returns></returns>
@@ -50,9 +44,7 @@ namespace SuperAwesomeCode.DataModel.Entities
 			return new EntityConnectionContainer(typeof(TObjectContext), settings);
 		}
 
-		/// <summary>
-		/// Creates the specified provider name.
-		/// </summary>
+		/// <summary>Creates the specified provider name.</summary>
 		/// <typeparam name="TObjectContext">The type of the object context.</typeparam>
 		/// <param name="providerName">Name of the provider.</param>
 		/// <param name="serverName">Name of the server.</param>
@@ -65,9 +57,7 @@ namespace SuperAwesomeCode.DataModel.Entities
 			return EntityConnectionContainer.Create<TObjectContext>(new EntityConnectionSettings(providerName, serverName, databaseName, metaDataRes));
 		}
 
-		/// <summary>
-		/// Gets the object context.
-		/// </summary>
+		/// <summary>Gets the object context.</summary>
 		/// <param name="context">The context.</param>
 		/// <returns></returns>
 		public ObjectContext GetObjectContext(Ninject.Activation.IContext context)

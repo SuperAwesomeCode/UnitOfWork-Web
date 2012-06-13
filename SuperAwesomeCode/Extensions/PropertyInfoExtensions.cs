@@ -5,14 +5,10 @@ using System.Runtime.Serialization;
 
 namespace System
 {
-	/// <summary>
-	/// Extension class for PropertyInfo.
-	/// </summary>
+	/// <summary>Extension class for PropertyInfo.</summary>
 	public static class PropertyInfoExtensions
 	{
-		/// <summary>
-		/// Sets the value.
-		/// </summary>
+		/// <summary>Sets the value.</summary>
 		/// <param name="propertyInfo">The property info.</param>
 		/// <param name="obj">The object to set the value on.</param>
 		/// <param name="value">The value to set.</param>

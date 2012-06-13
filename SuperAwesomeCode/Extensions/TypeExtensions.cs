@@ -5,14 +5,10 @@ using System.Runtime.Serialization;
 
 namespace System
 {
-	/// <summary>
-	/// Extension class for Type.
-	/// </summary>
+	/// <summary>Extension class for Type.</summary>
 	public static class TypeExtensions
 	{
-		/// <summary>
-		/// Gets the data contract properties.
-		/// </summary>
+		/// <summary>Gets the data contract properties.</summary>
 		/// <param name="type">The type.</param>
 		/// <returns></returns>
 		public static IEnumerable<PropertyInfo> GetDataContractProperties(this Type type)
@@ -22,9 +18,7 @@ namespace System
 			  .Where(i => i.GetCustomAttributes(false).FirstOrDefault(a => a is DataMemberAttribute) != null);
 		}
 
-		/// <summary>
-		/// Gets the data contractt property names.
-		/// </summary>
+		/// <summary>Gets the data contractt property names.</summary>
 		/// <param name="type">The type.</param>
 		/// <returns></returns>
 		public static IEnumerable<string> GetDataContractPropertyNames(this Type type)
@@ -43,14 +37,10 @@ namespace System
 				.Where(i => i != null);
 		}
 
-		/// <summary>
-		/// Determines whether [is subclass of raw generic] [the specified type].
-		/// </summary>
+		/// <summary>Determines whether [is subclass of raw generic] [the specified type].</summary>
 		/// <param name="type">The type.</param>
 		/// <param name="genericType">Type of the generic.</param>
-		/// <returns>
-		///   <c>true</c> if [is subclass of raw generic] [the specified type]; otherwise, <c>false</c>.
-		/// </returns>
+		/// <returns><c>true</c> if [is subclass of raw generic] [the specified type]; otherwise, <c>false</c>.</returns>
 		public static bool IsSubclassOfRawGeneric(this Type type, Type genericType)
 		{
 			while (type != typeof(object) && type.IsClass)

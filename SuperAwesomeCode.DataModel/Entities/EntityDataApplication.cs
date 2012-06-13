@@ -4,17 +4,13 @@ using Ninject.Modules;
 
 namespace SuperAwesomeCode.DataModel.Entities
 {
-	/// <summary>
-	/// 	Class that initializes the application.
-	/// </summary>
+	/// <summary>Class that initializes the application.</summary>
 	public static class EntityDataApplication
 	{
 		//TODO: Should NinjectSettings be exposed?
 		//TODO: Not allow DataApplicationSettings to be changeable
 
-		/// <summary>
-		/// Initializes the application.
-		/// </summary>
+		/// <summary>Initializes the application.</summary>
 		/// <param name="ninjectModule">Custom NinjectModule.</param>
 		/// <param name="ninjectSettings">Custom NinjectSettings.</param>
 		/// <param name="entityConnectionContainers">The entity connection containers.</param>

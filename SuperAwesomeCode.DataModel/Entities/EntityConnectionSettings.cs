@@ -4,17 +4,13 @@ using System.Data.SqlClient;
 
 namespace SuperAwesomeCode.DataModel.Entities
 {
-	/// <summary>
-	/// Class for Entity Connection Settings.
-	/// </summary>
+	/// <summary>Class for Entity Connection Settings.</summary>
 	public sealed class EntityConnectionSettings
 	{
 		/// <summary>Determines if the database is backed by a file, which needs a different connection string.</summary>
 		private bool _IsAttachedDbFile;
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="EntityConnectionSettings"/> class.
-		/// </summary>
+		/// <summary>Initializes a new instance of the <see cref="EntityConnectionSettings"/> class.</summary>
 		/// <param name="providerName">Name of the provider.</param>
 		/// <param name="serverName">Name of the server.</param>
 		/// <param name="databaseName">Name of the database.</param>
@@ -29,29 +25,22 @@ namespace SuperAwesomeCode.DataModel.Entities
 			this._IsAttachedDbFile = this.DatabaseName.StartsWith("|DataDirectory|", StringComparison.OrdinalIgnoreCase);
 		}
 
-		/// <summary>
-		/// Gets the name of the provider.
-		/// </summary>
+		/// <summary>Gets the name of the provider.</summary>
+		/// <value>The name of the provider.</value>
 		public string ProviderName { get; private set; }
 
-		/// <summary>
-		/// Gets the name of the server.
-		/// </summary>
+		/// <summary>Gets the name of the server.</summary>
+		/// <value>The name of the server.</value>
 		public string ServerName { get; private set; }
 
-		/// <summary>
-		/// Gets the name of the database.
-		/// </summary>
+		/// <summary>Gets the name of the database.</summary>
+		/// <value>The name of the database.</value>
 		public string DatabaseName { get; private set; }
 
-		/// <summary>
-		/// Gets the meta data res.
-		/// </summary>
+		/// <summary>Gets the meta data res.</summary>
 		public string MetaDataRes { get; private set; }
 
-		/// <summary>
-		/// Builds the connection.
-		/// </summary>
+		/// <summary>Builds the connection.</summary>
 		/// <returns></returns>
 		internal EntityConnection BuildConnection()
 		{

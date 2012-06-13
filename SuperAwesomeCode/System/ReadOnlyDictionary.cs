@@ -5,29 +5,21 @@ using System.Text;
 
 namespace System.Collections.ObjectModel
 {
-	/// <summary>
-	/// A read only implementation of a genericType dictionary.
-	/// </summary>
+	/// <summary>A read only implementation of a genericType dictionary.</summary>
 	/// <typeparam name="TKey">The type of the key.</typeparam>
 	/// <typeparam name="TValue">The type of the value.</typeparam>
 	public class ReadOnlyDictionary<TKey, TValue> : IDictionary<TKey, TValue>
 	{
-		/// <summary>
-		/// Dictionary member.
-		/// </summary>
+		/// <summary>Dictionary member.</summary>
 		private IDictionary<TKey, TValue> _Dictionary;
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="ReadOnlyDictionary&lt;TKey, TValue&gt;"/> class.
-		/// </summary>
+		/// <summary>Initializes a new instance of the <see cref="ReadOnlyDictionary&lt;TKey, TValue&gt;"/> class.</summary>
 		public ReadOnlyDictionary()
 		{
 			this._Dictionary = new Dictionary<TKey, TValue>();
 		}
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="ReadOnlyDictionary&lt;TKey, TValue&gt;"/> class.
-		/// </summary>
+		/// <summary>Initializes a new instance of the <see cref="ReadOnlyDictionary&lt;TKey, TValue&gt;"/> class.</summary>
 		/// <param name="dictionary">The dictionary.</param>
 		public ReadOnlyDictionary(IDictionary<TKey, TValue> dictionary)
 		{
@@ -158,9 +150,12 @@ namespace System.Collections.ObjectModel
 			this._Dictionary.CopyTo(array, arrayIndex);
 		}
 
-		/// <summary> Removes the first occurrence of a specific object from the <see cref="T:System.Collections.Generic.ICollection`1"/>.</summary>
+		/// <summary>Removes the first occurrence of a specific object from the <see cref="T:System.Collections.Generic.ICollection`1"/>.</summary>
 		/// <param name="item">The object to remove from the <see cref="T:System.Collections.Generic.ICollection`1"/>.</param>
-		/// <returns> true if <paramref name="item"/> was successfully removed from the <see cref="T:System.Collections.Generic.ICollection`1"/>; otherwise, false. This method also returns false if <paramref name="item"/> is not found in the original <see cref="T:System.Collections.Generic.ICollection`1"/>.</returns>
+		/// <returns>
+		/// true if <paramref name="item"/> was successfully removed from the <see cref="T:System.Collections.Generic.ICollection`1"/>; otherwise, false.
+		/// This method also returns false if <paramref name="item"/> is not found in the original <see cref="T:System.Collections.Generic.ICollection`1"/>.
+		/// </returns>
 		/// <exception cref="T:System.NotSupportedException"> The <see cref="T:System.Collections.Generic.ICollection`1"/> is read-only.</exception>
 		public bool Remove(KeyValuePair<TKey, TValue> item)
 		{
@@ -171,10 +166,8 @@ namespace System.Collections.ObjectModel
 
 		#region IEnumerable<KeyValuePair<TKey,TValue>> Members
 
-		/// <summary> Returns an enumerator that iterates through the collection.</summary>
-		/// <returns>
-		/// A <see cref="T:System.Collections.Generic.IEnumerator`1"/> that can be used to iterate through the collection.
-		/// </returns>
+		/// <summary>Returns an enumerator that iterates through the collection.</summary>
+		/// <returns>A <see cref="T:System.Collections.Generic.IEnumerator`1"/> that can be used to iterate through the collection.</returns>
 		public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
 		{
 			return this._Dictionary.GetEnumerator();
@@ -184,10 +177,8 @@ namespace System.Collections.ObjectModel
 
 		#region IEnumerable Members
 
-		/// <summary> Returns an enumerator that iterates through a collection.</summary>
-		/// <returns>
-		/// An <see cref="T:System.Collections.IEnumerator"/> object that can be used to iterate through the collection.
-		/// </returns>
+		/// <summary>Returns an enumerator that iterates through a collection.</summary>
+		/// <returns>An <see cref="T:System.Collections.IEnumerator"/> object that can be used to iterate through the collection.</returns>
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
 		{
 			return (this._Dictionary as System.Collections.IEnumerable).GetEnumerator();

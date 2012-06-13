@@ -2,14 +2,10 @@
 
 namespace System
 {
-	/// <summary>
-	/// Extensionn methods for bytes.
-	/// </summary>
+	/// <summary>Extensionn methods for bytes.</summary>
 	public static class ByteExtensions
 	{
-		/// <summary>
-		/// Encrypts the specified bytes.
-		/// </summary>
+		/// <summary>Encrypts the specified bytes.</summary>
 		/// <param name="bytes">The bytes.</param>
 		/// <param name="sharedSecretKey">The shared secret key.</param>
 		/// <param name="salt">The salt string.</param>
@@ -24,9 +20,7 @@ namespace System
 			return Convert.FromBase64String(Crypto.EncryptStringAes(Convert.ToBase64String(bytes), sharedSecretKey, salt));
 		}
 
-		/// <summary>
-		/// Decrypts the specified bytes.
-		/// </summary>
+		/// <summary>Decrypts the specified bytes.</summary>
 		/// <param name="bytes">The bytes.</param>
 		/// <param name="sharedSecretKey">The shared secret key.</param>
 		/// <param name="salt">The salt string.</param>

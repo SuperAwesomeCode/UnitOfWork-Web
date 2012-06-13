@@ -4,59 +4,47 @@ using System.Linq;
 
 namespace System
 {
-	/// <summary>
-	/// 	Extension methods for string.
-	/// </summary>
+	/// <summary>Extension methods for string.</summary>
 	public static class StringExtensions
 	{
-		/// <summary>
-		/// 	Converts the string to an integer or a default value.
-		/// </summary>
-		/// <param name="value"> String value to convert. </param>
-		/// <param name="defaultValue"> Default value to use if the parse fails. </param>
-		/// <returns> Parsed integer or defaultValue. </returns>
+		/// <summary>Converts the string to an integer or a default value.</summary>
+		/// <param name="value">String value to convert.</param>
+		/// <param name="defaultValue">Default value to use if the parse fails.</param>
+		/// <returns>Parsed integer or defaultValue.</returns>
 		public static int ToIntOrDefault(this string value, int defaultValue = 0)
 		{
 			return (int)value.ToDecimalOrDefault(defaultValue);
 		}
 
-		/// <summary>
-		/// 	Converts the string to an float or a default value.
-		/// </summary>
-		/// <param name="value"> String value to convert. </param>
-		/// <param name="defaultValue"> Default value to use if the parse fails. </param>
-		/// <returns> Parsed float or defaultValue. </returns>
+		/// <summary>Converts the string to an float or a default value.</summary>
+		/// <param name="value">String value to convert.</param>
+		/// <param name="defaultValue">Default value to use if the parse fails.</param>
+		/// <returns>Parsed float or defaultValue.</returns>
 		public static float ToFloatOrDefault(this string value, float defaultValue = 0)
 		{
 			return (float)value.ToDecimalOrDefault((decimal)defaultValue);
 		}
 
-		/// <summary>
-		/// 	Converts the string to an double or a default value.
-		/// </summary>
-		/// <param name="value"> String value to convert. </param>
-		/// <param name="defaultValue"> Default value to use if the parse fails. </param>
-		/// <returns> Parsed double or defaultValue. </returns>
+		/// <summary>Converts the string to an double or a default value.</summary>
+		/// <param name="value">String value to convert.</param>
+		/// <param name="defaultValue">Default value to use if the parse fails.</param>
+		/// <returns>Parsed double or defaultValue.</returns>
 		public static double ToDoubleOrDefault(this string value, double defaultValue = 0)
 		{
 			return (double)value.ToDecimalOrDefault((decimal)defaultValue);
 		}
 
-		/// <summary>
-		/// 	Converts the string to an decimal or a default value.
-		/// </summary>
-		/// <param name="value"> String value to convert. </param>
-		/// <param name="defaultValue"> Default value to use if the parse fails. </param>
-		/// <returns> Parsed decimal or defaultValue. </returns>
+		/// <summary>Converts the string to an decimal or a default value.</summary>
+		/// <param name="value">String value to convert.</param>
+		/// <param name="defaultValue">Default value to use if the parse fails.</param>
+		/// <returns>Parsed decimal or defaultValue.</returns>
 		public static decimal ToDecimalOrDefault(this string value, decimal defaultValue = 0)
 		{
 			decimal parsedValue = 0;
 			return decimal.TryParse(value, out parsedValue) ? parsedValue : defaultValue;
 		}
 
-		/// <summary>
-		/// Converts to nullable bool including using Y/N/string.Empty.
-		/// </summary>
+		/// <summary>Converts to nullable bool including using Y/N/string.Empty.</summary>
 		/// <param name="value">The value.</param>
 		/// <returns></returns>
 		public static bool? ConvertToNullableBool(this string value)
@@ -80,9 +68,7 @@ namespace System
 			return null;
 		}
 
-		/// <summary>
-		/// Safely splits the string value.
-		/// </summary>
+		/// <summary>Safely splits the string value.</summary>
 		/// <param name="value">The value.</param>
 		/// <param name="delimiters">The delimiters.</param>
 		/// <returns></returns>
@@ -96,9 +82,7 @@ namespace System
 				.ToList();
 		}
 
-		/// <summary>
-		/// Converts a string to a dateTime with the given format and kind.
-		/// </summary>
+		/// <summary>Converts a string to a dateTime with the given format and kind.</summary>
 		/// <param name="dateTimeString">The date time string.</param>
 		/// <param name="dateTimeFormat">The date time format.</param>
 		/// <param name="dateTimeKind">Kind of the date time.</param>
@@ -121,6 +105,25 @@ namespace System
 			}
 
 			return dateTime;
+		}
+
+		/// <summary>Parses a string and converts to an enumeration.</summary>
+		/// <typeparam name="T">Type of enumeration to return.</typeparam>
+		/// <param name="fieldValue">String value.</param>
+		/// <returns>Enumeration of the correct value.</returns>
+		public static T ToEnum<T>(this string fieldValue) where T : struct, IConvertible
+		{
+			return EnumExtensions.ToEnum<T>(fieldValue);
+		}
+
+		/// <summary>Parses a string and converts to an enumeration.</summary>
+		/// <typeparam name="T">Type of enumeration to return.</typeparam>
+		/// <param name="fieldValue">String value.</param>
+		/// <param name="defaultValue">Default value to use if the EnumMemberAttribute is not obtained.</param>
+		/// <returns>Enumeration of the correct value.</returns>
+		public static T ToEnum<T>(this string fieldValue, T defaultValue) where T : struct, IConvertible
+		{
+			return EnumExtensions.ToEnum<T>(fieldValue, defaultValue);
 		}
 	}
 }

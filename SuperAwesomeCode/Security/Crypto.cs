@@ -8,10 +8,8 @@ namespace SuperAwesomeCode.Security
 	/// <summary>Class used to Encrypt and Decrypt strings.</summary>
 	public class Crypto
 	{
-		/// <summary>
-		/// Encrypt the given string using AES.  The string can be decrypted using
-		/// DecryptStringAes().  The sharedSecret parameters must match.
-		/// </summary>
+		/// <summary>Encrypt the given string using AES.  The string can be decrypted using
+		/// DecryptStringAes().  The sharedSecret parameters must match.</summary>
 		/// <param name="plainText">The text to encrypt.</param>
 		/// <param name="sharedSecret">A password used to generate a key for encryption.</param>
 		/// <param name="salt">The salt used for encryption.</param>
@@ -67,10 +65,8 @@ namespace SuperAwesomeCode.Security
 			return returnValue;
 		}
 
-		/// <summary>
-		/// Decrypt the given string.  Assumes the string was encrypted using
-		/// EncryptStringAes(), using an identical sharedSecret.
-		/// </summary>
+		/// <summary>Decrypt the given string.  Assumes the string was encrypted using
+		/// EncryptStringAes(), using an identical sharedSecret.</summary>
 		/// <param name="cipherText">The text to decrypt.</param>
 		/// <param name="sharedSecret">A password used to generate a key for decryption.</param>
 		/// <param name="salt">The salt used for encryption.</param>

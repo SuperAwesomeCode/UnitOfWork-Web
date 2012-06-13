@@ -3,9 +3,7 @@ using System.Linq.Expressions;
 
 namespace System.Linq
 {
-	/// <summary>
-	/// 	Extension methods for IQueryables.
-	/// </summary>
+	/// <summary>Extension methods for IQueryables.</summary>
 	public static class QueryableExtensions
 	{
 		/// <summary>Cast the Queryable as a dynamic of an anonymous. This allows retrieving dynamics from LINQ to Entities.</summary>

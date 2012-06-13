@@ -8,7 +8,7 @@ namespace SuperAwesomeCode.DataModel.Entities
 {
 	/// <summary>Implementation for a Generic Entity Repository.</summary>
 	/// <typeparam name="TEntity">The type of the entity.</typeparam>
-	public class GenericEntityRepository<TEntity> : IRepository<TEntity> where TEntity : class
+	internal sealed class GenericEntityRepository<TEntity> : IRepository<TEntity> where TEntity : class
 	{
 		/// <summary>The ObjectContext containing the ObjectSet.</summary>
 		private ObjectContext _ObjectContext;
@@ -16,9 +16,7 @@ namespace SuperAwesomeCode.DataModel.Entities
 		/// <summary>The ObjectSet for the entity.</summary>
 		private ObjectSet<TEntity> _ObjectSet;
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="GenericEntityRepository&lt;TEntity&gt;"/> class.
-		/// </summary>
+		/// <summary>Initializes a new instance of the <see cref="GenericEntityRepository&lt;TEntity&gt;"/> class.</summary>
 		/// <param name="objectContext">The object context.</param>
 		public GenericEntityRepository(ObjectContext objectContext)
 		{
