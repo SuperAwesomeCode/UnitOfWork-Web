@@ -1,0 +1,5 @@
+This is a very slim UnitOfWork pattern for using the Repository pattern in .NET. It was initially created for querying multiple MSSQL databases using EntityFramework. The IUnitOfWork is in the DataModel namespace to allow MVC projects to use the IoC container, but also not require knowing about the data layer to prevent putting business logic in the controllers.
+
+It is recommended that if this code is used, to have a separate models assembly which references SuperAwesomeCode.DataModel. The web project should not care about the backing database.
+
+Do what you will with this code.
