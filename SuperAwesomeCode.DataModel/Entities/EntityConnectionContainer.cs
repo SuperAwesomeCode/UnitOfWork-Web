@@ -58,9 +58,8 @@ namespace SuperAwesomeCode.DataModel.Entities
 		}
 
 		/// <summary>Gets the object context.</summary>
-		/// <param name="context">The context.</param>
 		/// <returns></returns>
-		public ObjectContext GetObjectContext(Ninject.Activation.IContext context)
+		public ObjectContext GetObjectContext()
 		{
 			return this._ConstructorInfo.Invoke(new object[] { this._Settings.BuildConnection() }) as ObjectContext;
 		}

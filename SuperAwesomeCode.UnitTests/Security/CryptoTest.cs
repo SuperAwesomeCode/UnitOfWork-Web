@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SuperAwesomeCode.Security;
 
-namespace SuperAwesomeCode.UnitTests
+namespace SuperAwesomeCode.UnitTests.Security
 {
 	[TestClass()]
 	public class CryptoTest : BaseUnitTest

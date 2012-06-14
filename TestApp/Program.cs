@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Threading;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SuperAwesomeCode;
 using SuperAwesomeCode.DataModel;
 using SuperAwesomeCode.DataModel.Entities;
 using TestApp.Entities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace TestApp
 {
@@ -15,18 +15,20 @@ namespace TestApp
 		// Also IoC as a static may cause an issue when dealing with different application types.
 		private static void Main(string[] args)
 		{
+			//Setup
+			var container = EntityConnectionContainer.Create<TestEntityContainer>(
+					@"System.Data.SqlClient",
+					@".\SQLEXPRESS",
+					@"|DataDirectory|\Entities\TestDatabase.mdf",
+					@"Entities.TestEntityContainer");
+
+			var module = new EntityDataApplicationModule(container);
+			IoC ioc = new IoC(modules: module);
+
 			try
 			{
-				var container = EntityConnectionContainer.Create<TestEntityContainer>(
-						@"System.Data.SqlClient",
-						@".\SQLEXPRESS",
-						@"|DataDirectory|\Entities\TestDatabase.mdf",
-						@"Entities.TestEntityContainer");
-
-				EntityDataApplication.Initialize(entityConnectionContainers: container);
-
 				//Save Example
-				using (var unitOfWork = IoC.Resolve<IUnitOfWork>())
+				using (var unitOfWork = ioc.Resolve<IUnitOfWork>())
 				{
 					var userRepository = unitOfWork.Repository<User>();
 					userRepository.Add(new User
@@ -41,9 +43,9 @@ namespace TestApp
 
 					unitOfWork.Save();
 				}
-		
+
 				//Query Example
-				using (var unitOfWork = IoC.Resolve<IUnitOfWork>())
+				using (var unitOfWork = ioc.Resolve<IUnitOfWork>())
 				{
 					var userRepository = unitOfWork.Repository<User>();
 					var users = userRepository
@@ -52,7 +54,6 @@ namespace TestApp
 
 					Assert.IsTrue(users.Any());
 				}
-
 			}
 			catch (Exception e)
 			{
@@ -60,6 +61,13 @@ namespace TestApp
 				Console.WriteLine(e.StackTrace);
 
 				Thread.Sleep(5000);
+			}
+			finally
+			{
+				if (ioc != null)
+				{
+					ioc.Dispose();
+				}
 			}
 		}
 	}

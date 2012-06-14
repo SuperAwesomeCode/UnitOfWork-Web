@@ -70,7 +70,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\BatchedEntityDataContext.cs" />
-    <Compile Include="Entities\EntityDataApplication.cs" />
     <Compile Include="Entities\EntityDataApplicationModule.cs" />
     <Compile Include="Entities\EntityConnectionContainer.cs" />
     <Compile Include="Entities\EntityConnectionSettings.cs" />

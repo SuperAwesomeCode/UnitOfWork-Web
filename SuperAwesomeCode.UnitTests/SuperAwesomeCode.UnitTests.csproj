@@ -92,6 +92,7 @@
     <Compile Include="Extensions\EnumExtensionsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BaseUnitTest.cs" />
+    <Compile Include="System\ReadOnlyDictionaryTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SuperAwesomeCode\SuperAwesomeCode.csproj">

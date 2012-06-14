@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace System.Collections.ObjectModel
+namespace System.Collections.Generic
 {
 	/// <summary>A read only implementation of a genericType dictionary.</summary>
 	/// <typeparam name="TKey">The type of the key.</typeparam>
@@ -24,6 +23,9 @@ namespace System.Collections.ObjectModel
 		public ReadOnlyDictionary(IDictionary<TKey, TValue> dictionary)
 		{
 			this._Dictionary = dictionary;
+
+			//TODO: Should this copy the values or allows modifications of the underlying dictionary?
+			//this._Dictionary = dictionary.ToDictionary(i => i.Key, i => i.Value);
 		}
 
 		#region IDictionary<TKey,TValue> Members
