@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SuperAwesomeCode.UnitTests;
 
-namespace SuperAwesomeCode.UnitTests.System
+namespace System.Collections.Generic
 {
 	[TestClass()]
 	public class ReadOnlyDictionaryTest : BaseUnitTest

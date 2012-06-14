@@ -3,16 +3,18 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
+    <ProductVersion>
+    </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{A7B14EFE-0E31-45C5-AA9B-3DCC865ACE16}</ProjectGuid>
+    <ProjectGuid>{B2152C5B-7DD9-4B4E-8846-CFA66CEDB02B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SuperAwesomeCode.DataModel</RootNamespace>
-    <AssemblyName>SuperAwesomeCode.DataModel</AssemblyName>
+    <RootNamespace>SuperAwesomeCode.UnitTests.DataModel</RootNamespace>
+    <AssemblyName>SuperAwesomeCode.UnitTests.DataModel</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <StyleCopOverrideSettingsFile>..\packages\StyleCop.MSBuild.4.7.31.0\tools\Settings.StyleCop</StyleCopOverrideSettingsFile>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <StyleCopOverrideSettingsFile>..\packages\StyleCop.MSBuild.4.7.31.0\tools\Settings-UnitTests.StyleCop</StyleCopOverrideSettingsFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -47,6 +49,7 @@
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.4.3.1\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Ninject">
       <HintPath>..\packages\Ninject.3.0.1.10\lib\net40\Ninject.dll</HintPath>
     </Reference>
@@ -58,39 +61,67 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.Entity" />
-    <Reference Include="System.Data.Linq" />
-    <Reference Include="System.Transactions" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\BatchedEntityDataContext.cs" />
-    <Compile Include="Entities\EntityDataModule.cs" />
-    <Compile Include="Entities\EntityConnectionContainer.cs" />
-    <Compile Include="Entities\EntityConnectionSettings.cs" />
-    <Compile Include="Entities\GenericEntityRepository.cs" />
-    <Compile Include="IRepository.cs" />
-    <Compile Include="IUnitOfWork.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Entities\EntityUnitOfWork.cs" />
+    <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
+      <Visible>False</Visible>
+    </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataStore\MockEntityContext.Designer.cs">
+      <DependentUpon>MockEntityContext.edmx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="DataStore\MockEntityUtility.cs" />
+    <Compile Include="Entities\EntityConnectionContainerTest.cs" />
+    <Compile Include="MockUnitOfWorkModule.cs" />
+    <Compile Include="IocUnitOfWorkTests.cs" />
+    <Compile Include="MockRepository.cs" />
+    <Compile Include="MockUnitOfWork.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SuperAwesomeCode.DataModel\SuperAwesomeCode.DataModel.csproj">
+      <Project>{A7B14EFE-0E31-45C5-AA9B-3DCC865ACE16}</Project>
+      <Name>SuperAwesomeCode.DataModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SuperAwesomeCode.UnitTests\SuperAwesomeCode.UnitTests.csproj">
+      <Project>{238C084D-6C0A-495E-95F8-1DBE0E834F52}</Project>
+      <Name>SuperAwesomeCode.UnitTests</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SuperAwesomeCode\SuperAwesomeCode.csproj">
       <Project>{73B0A57B-C411-4C62-AD4C-B59D5663071F}</Project>
       <Name>SuperAwesomeCode</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EntityDeploy Include="DataStore\MockEntityContext.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>MockEntityContext.Designer.cs</LastGenOutput>
+    </EntityDeploy>
     <None Include="packages.config" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Content Include="DataStore\MockDatabase.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataStore\MockDatabase_log.ldf">
+      <DependentUpon>MockDatabase.mdf</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-	   Other similar extension points exist, see Microsoft.Common.targets.
+       Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
   <Target Name="AfterBuild">

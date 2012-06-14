@@ -17,39 +17,39 @@ using System.Runtime.Serialization;
 
 [assembly: EdmSchemaAttribute()]
 
-namespace TestApp.Entities
+namespace SuperAwesomeCode.UnitTests.DataModel.DataStore
 {
     #region Contexts
     
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    public partial class TestEntityContainer : ObjectContext
+    public partial class MockEntityContext : ObjectContext
     {
         #region Constructors
     
         /// <summary>
-        /// Initializes a new TestEntityContainer object using the connection string found in the 'TestEntityContainer' section of the application configuration file.
+        /// Initializes a new MockEntityContext object using the connection string found in the 'MockEntityContext' section of the application configuration file.
         /// </summary>
-        public TestEntityContainer() : base("name=TestEntityContainer", "TestEntityContainer")
+        public MockEntityContext() : base("name=MockEntityContext", "MockEntityContext")
         {
             this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
         }
     
         /// <summary>
-        /// Initialize a new TestEntityContainer object.
+        /// Initialize a new MockEntityContext object.
         /// </summary>
-        public TestEntityContainer(string connectionString) : base(connectionString, "TestEntityContainer")
+        public MockEntityContext(string connectionString) : base(connectionString, "MockEntityContext")
         {
             this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
         }
     
         /// <summary>
-        /// Initialize a new TestEntityContainer object.
+        /// Initialize a new MockEntityContext object.
         /// </summary>
-        public TestEntityContainer(EntityConnection connection) : base(connection, "TestEntityContainer")
+        public MockEntityContext(EntityConnection connection) : base(connection, "MockEntityContext")
         {
             this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();

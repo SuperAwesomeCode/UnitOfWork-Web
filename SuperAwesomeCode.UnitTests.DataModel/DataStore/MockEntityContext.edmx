@@ -20,7 +20,7 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Entities" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
-        <EntityContainer Name="TestEntityContainer" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="MockEntityContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Users" EntityType="Entities.User" />
         </EntityContainer>
         <EntityType Name="User">
@@ -36,7 +36,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
     <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="EntitiesStoreContainer" CdmEntityContainer="TestEntityContainer">
+  <EntityContainerMapping StorageEntityContainer="EntitiesStoreContainer" CdmEntityContainer="MockEntityContext">
         <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="Entities.User">
               <MappingFragment StoreEntitySet="Users">

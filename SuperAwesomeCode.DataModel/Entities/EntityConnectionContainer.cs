@@ -14,6 +14,11 @@ namespace SuperAwesomeCode.DataModel.Entities
 		/// <summary>EntitySettings used to create the connection.</summary>
 		private EntityConnectionSettings _Settings;
 
+		/// <summary>Prevents a default instance of the <see cref="EntityConnectionContainer"/> class from being created.</summary>
+		private EntityConnectionContainer()
+		{
+		}
+
 		/// <summary>Initializes a new instance of the <see cref="EntityConnectionContainer"/> class.</summary>
 		/// <param name="objectContextType">Type of the object context.</param>
 		/// <param name="settings">The entity connection settings.</param>

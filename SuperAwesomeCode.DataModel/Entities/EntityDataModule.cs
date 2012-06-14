@@ -4,15 +4,15 @@ using Ninject.Modules;
 
 namespace SuperAwesomeCode.DataModel.Entities
 {
-	/// <summary>EntityDataApplicationModule class.</summary>
-	public sealed class EntityDataApplicationModule : NinjectModule
+	/// <summary>EntityDataModule class.</summary>
+	public sealed class EntityDataModule : NinjectModule
 	{
 		/// <summary>All of the connection containers.</summary>
 		private IEnumerable<EntityConnectionContainer> _EntityConnectionContainers;
 
-		/// <summary>Initializes a new instance of the <see cref="EntityDataApplicationModule"/> class.</summary>
+		/// <summary>Initializes a new instance of the <see cref="EntityDataModule"/> class.</summary>
 		/// <param name="entityConnectionContainers">The entity connection containers.</param>
-		public EntityDataApplicationModule(params EntityConnectionContainer[] entityConnectionContainers)
+		public EntityDataModule(params EntityConnectionContainer[] entityConnectionContainers)
 		{
 			this._EntityConnectionContainers = entityConnectionContainers;
 		}
