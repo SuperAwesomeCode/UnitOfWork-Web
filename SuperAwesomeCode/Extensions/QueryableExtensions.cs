@@ -10,14 +10,14 @@ namespace System.Linq
 		/// <typeparam name="TQueryable">The type of the queryable.</typeparam>
 		/// <typeparam name="TAnonymous">The type of the anonymous.</typeparam>
 		/// <param name="queryable">The queryable.</param>
-		/// <param name="findExpression">The find expression.</param>
+		/// <param name="selectExpression">The select expression.</param>
 		/// <returns></returns>
 		public static IList<dynamic> ToDynamicList<TQueryable, TAnonymous>(
 			this IQueryable<TQueryable> queryable,
-			Expression<Func<TQueryable, TAnonymous>> findExpression)
+			Expression<Func<TQueryable, TAnonymous>> selectExpression)
 		{
 			return queryable
-				.Select(findExpression) //Select the items (LINQ to Entities)
+				.Select(selectExpression) //Select the items (LINQ to Entities)
 				.ToList() //To Annonymous List
 				.Select(i => (dynamic)i) //Cast as Dynamic (LINQ to Objects)
 				.ToList(); //To Dynamic List

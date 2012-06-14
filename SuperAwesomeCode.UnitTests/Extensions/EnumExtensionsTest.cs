@@ -30,9 +30,11 @@ namespace SuperAwesomeCode.UnitTests.Extensions
 		[TestMethod()]
 		public void ToEnumTest()
 		{
-			Assert.AreEqual("Value One".ToEnum<TestEnumeration>(), TestEnumeration.Value1);
-			Assert.AreEqual("Value2".ToEnum<TestEnumeration>(), TestEnumeration.Value2);
-			Assert.AreEqual("Value3".ToEnum<TestEnumeration>(), TestEnumeration.Value3);
+			//Calling EnumExtensions.ToEnum() directly as the string.ToEnum() should have its own tests.
+			Assert.AreEqual(EnumExtensions.ToEnum<TestEnumeration>("Value One"), TestEnumeration.Value1);
+			Assert.AreEqual(EnumExtensions.ToEnum<TestEnumeration>("Value2"), TestEnumeration.Value2);
+			Assert.AreEqual(EnumExtensions.ToEnum<TestEnumeration>("Value3"), TestEnumeration.Value3);
+			Assert.AreEqual(EnumExtensions.ToEnum<TestEnumeration>("Not_A_Value", TestEnumeration.Value2), TestEnumeration.Value2);
 		}
 	}
 }

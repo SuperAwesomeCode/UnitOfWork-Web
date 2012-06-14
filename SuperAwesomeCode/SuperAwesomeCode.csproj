@@ -70,7 +70,7 @@
     <Compile Include="Extensions\PropertyInfoExtensions.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\FileInfoExtensions.cs" />
-    <Compile Include="Extensions\IEnumerableExtensions.cs" />
+    <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\QueryableExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\DirectoryExtensions.cs" />

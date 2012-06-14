@@ -32,7 +32,7 @@ namespace SuperAwesomeCode
 		/// <summary>Throws an ArgumentNullException.</summary>
 		/// <param name="parameterName">ParameterName to throw the exception with.</param>
 		/// <param name="message">Message to throw the exception with.</param>
-		private static void ThrowArgumentNullException(string parameterName = null, string message = null)
+		public static void ThrowArgumentNullException(string parameterName = null, string message = null)
 		{
 			if (!string.IsNullOrEmpty(parameterName))
 			{

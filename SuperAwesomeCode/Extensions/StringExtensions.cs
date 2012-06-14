@@ -62,7 +62,7 @@ namespace System
 
 			if (string.Equals(value, "n", StringComparison.OrdinalIgnoreCase))
 			{
-				return true;
+				return false;
 			}
 
 			return null;
