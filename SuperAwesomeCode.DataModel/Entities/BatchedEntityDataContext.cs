@@ -10,16 +10,16 @@ namespace SuperAwesomeCode.DataModel.Entities
 	internal sealed class BatchedEntityDataContext : IDisposable
 	{
 		/// <summary>Dictionary of ObjectContext(es).</summary>
-		private Dictionary<EntityConnectionContainer, ObjectContext> _Dictionary;
+		private Dictionary<EntityConnectionContainer, ObjectContext> _dictionary;
 
 		/// <summary>Initializes a new instance of the <see cref="BatchedEntityDataContext"/> class.</summary>
 		/// <param name="entityConnectionContainers">The entity connection containers.</param>
 		public BatchedEntityDataContext(IEnumerable<EntityConnectionContainer> entityConnectionContainers)
 		{
-			this._Dictionary = new Dictionary<EntityConnectionContainer, ObjectContext>();
+			this._dictionary = new Dictionary<EntityConnectionContainer, ObjectContext>();
 			foreach (var container in entityConnectionContainers)
 			{
-				this._Dictionary.Add(container, null);
+				this._dictionary.Add(container, null);
 			}
 		}
 
@@ -28,7 +28,7 @@ namespace SuperAwesomeCode.DataModel.Entities
 		{
 			using (TransactionScope scope = new TransactionScope())
 			{
-				var values = this._Dictionary.Values.Where(i => i != null).ToList();
+				var values = this._dictionary.Values.Where(i => i != null).ToList();
 				values.ForEach(i => i.SaveChanges(SaveOptions.AcceptAllChangesAfterSave));
 				values.ForEach(i => i.AcceptAllChanges());
 
@@ -44,7 +44,7 @@ namespace SuperAwesomeCode.DataModel.Entities
 			string entityTypeNamespace = typeof(TEntityType).Namespace;
 
 			//This is SingleOrDefault() because if there is a namespace collision it should fail.
-			var key = this._Dictionary.Keys
+			var key = this._dictionary.Keys
 				.Where(i => string.Equals(i.ObjectContextType.Namespace, entityTypeNamespace))
 				.SingleOrDefault();
 
@@ -53,18 +53,18 @@ namespace SuperAwesomeCode.DataModel.Entities
 				return null;
 			}
 
-			if (this._Dictionary[key] == null)
+			if (this._dictionary[key] == null)
 			{
-				this._Dictionary[key] = key.GetObjectContext();
+				this._dictionary[key] = key.GetObjectContext();
 			}
 
-			return this._Dictionary[key];
+			return this._dictionary[key];
 		}
 
 		/// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
 		public void Dispose()
 		{
-			foreach (var keyValue in this._Dictionary)
+			foreach (var keyValue in this._dictionary)
 			{
 				if (keyValue.Value != null)
 				{

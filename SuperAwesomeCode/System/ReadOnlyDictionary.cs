@@ -10,22 +10,22 @@ namespace System.Collections.Generic
 	public class ReadOnlyDictionary<TKey, TValue> : IDictionary<TKey, TValue>
 	{
 		/// <summary>Dictionary member.</summary>
-		private IDictionary<TKey, TValue> _Dictionary;
+		private IDictionary<TKey, TValue> _dictionary;
 
 		/// <summary>Initializes a new instance of the <see cref="ReadOnlyDictionary&lt;TKey, TValue&gt;"/> class.</summary>
 		public ReadOnlyDictionary()
 		{
-			this._Dictionary = new Dictionary<TKey, TValue>();
+			this._dictionary = new Dictionary<TKey, TValue>();
 		}
 
 		/// <summary>Initializes a new instance of the <see cref="ReadOnlyDictionary&lt;TKey, TValue&gt;"/> class.</summary>
 		/// <param name="dictionary">The dictionary.</param>
 		public ReadOnlyDictionary(IDictionary<TKey, TValue> dictionary)
 		{
-			this._Dictionary = dictionary;
+			this._dictionary = dictionary;
 
 			//TODO: Should this copy the values or allows modifications of the underlying dictionary?
-			//this._Dictionary = dictionary.ToDictionary(i => i.Key, i => i.Value);
+			//this._dictionary = dictionary.ToDictionary(i => i.Key, i => i.Value);
 		}
 
 		#region IDictionary<TKey,TValue> Members
@@ -34,7 +34,7 @@ namespace System.Collections.Generic
 		/// <returns> The number of elements contained in the <see cref="T:System.Collections.Generic.ICollection`1"/>.</returns>
 		public int Count
 		{
-			get { return this._Dictionary.Count; }
+			get { return this._dictionary.Count; }
 		}
 
 		/// <summary> Gets a value indicating whether the <see cref="T:System.Collections.Generic.ICollection`1"/> is read-only.</summary>
@@ -48,14 +48,14 @@ namespace System.Collections.Generic
 		/// <returns> An <see cref="T:System.Collections.Generic.ICollection`1"/> containing the values in the object that implements <see cref="T:System.Collections.Generic.IDictionary`2"/>.</returns>
 		public ICollection<TValue> Values
 		{
-			get { return this._Dictionary.Values; }
+			get { return this._dictionary.Values; }
 		}
 
 		/// <summary> Gets an <see cref="T:System.Collections.Generic.ICollection`1"/> containing the keys of the <see cref="T:System.Collections.Generic.IDictionary`2"/>.</summary>
 		/// <returns> An <see cref="T:System.Collections.Generic.ICollection`1"/> containing the keys of the object that implements <see cref="T:System.Collections.Generic.IDictionary`2"/>.</returns>
 		public ICollection<TKey> Keys
 		{
-			get { return this._Dictionary.Keys; }
+			get { return this._dictionary.Keys; }
 		}
 
 		/// <summary> Gets or sets the element with the specified key.</summary>
@@ -68,7 +68,7 @@ namespace System.Collections.Generic
 		{
 			get
 			{
-				return this._Dictionary[key];
+				return this._dictionary[key];
 			}
 
 			set
@@ -104,7 +104,7 @@ namespace System.Collections.Generic
 		/// <exception cref="T:System.ArgumentNullException"><paramref name="key"/> is null.</exception>
 		public bool ContainsKey(TKey key)
 		{
-			return this._Dictionary.ContainsKey(key);
+			return this._dictionary.ContainsKey(key);
 		}
 
 		/// <summary> Gets the value associated with the specified key.</summary>
@@ -114,7 +114,7 @@ namespace System.Collections.Generic
 		/// <exception cref="T:System.ArgumentNullException"><paramref name="key"/> is null.</exception>
 		public bool TryGetValue(TKey key, out TValue value)
 		{
-			return this._Dictionary.TryGetValue(key, out value);
+			return this._dictionary.TryGetValue(key, out value);
 		}
 
 		#endregion
@@ -141,7 +141,7 @@ namespace System.Collections.Generic
 		/// <returns> true if <paramref name="item"/> is found in the <see cref="T:System.Collections.Generic.ICollection`1"/>; otherwise, false.</returns>
 		public bool Contains(KeyValuePair<TKey, TValue> item)
 		{
-			return this._Dictionary.Contains(item);
+			return this._dictionary.Contains(item);
 		}
 
 		/// <summary>Copies to implementation.</summary>
@@ -149,7 +149,7 @@ namespace System.Collections.Generic
 		/// <param name="arrayIndex">Index of the array.</param>
 		public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
 		{
-			this._Dictionary.CopyTo(array, arrayIndex);
+			this._dictionary.CopyTo(array, arrayIndex);
 		}
 
 		/// <summary>Removes the first occurrence of a specific object from the <see cref="T:System.Collections.Generic.ICollection`1"/>.</summary>
@@ -172,7 +172,7 @@ namespace System.Collections.Generic
 		/// <returns>A <see cref="T:System.Collections.Generic.IEnumerator`1"/> that can be used to iterate through the collection.</returns>
 		public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
 		{
-			return this._Dictionary.GetEnumerator();
+			return this._dictionary.GetEnumerator();
 		}
 
 		#endregion
@@ -183,7 +183,7 @@ namespace System.Collections.Generic
 		/// <returns>An <see cref="T:System.Collections.IEnumerator"/> object that can be used to iterate through the collection.</returns>
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
 		{
-			return (this._Dictionary as System.Collections.IEnumerable).GetEnumerator();
+			return (this._dictionary as System.Collections.IEnumerable).GetEnumerator();
 		}
 
 		#endregion

@@ -7,23 +7,23 @@ namespace SuperAwesomeCode.UnitTests.DataModel
 {
 	public sealed class MockUnitOfWorkModule : NinjectModule
 	{
-		private IUnitOfWork _UnitOfWork;
+		private IUnitOfWork _unitOfWork;
 
 		public MockUnitOfWorkModule(IUnitOfWork unitOfWork = null)
 		{
-			this._UnitOfWork = unitOfWork;
+			this._unitOfWork = unitOfWork;
 		}
 
 		/// <summary>Loads the module into the kernel.</summary>
 		public override void Load()
 		{
-			if (this._UnitOfWork == null)
+			if (this._unitOfWork == null)
 			{
 				this.Bind<IUnitOfWork>().To<MockUnitOfWork>();
 			}
 			else
 			{
-				this.Bind<IUnitOfWork>().ToConstant(this._UnitOfWork);
+				this.Bind<IUnitOfWork>().ToConstant(this._unitOfWork);
 			}
 		}
 	}

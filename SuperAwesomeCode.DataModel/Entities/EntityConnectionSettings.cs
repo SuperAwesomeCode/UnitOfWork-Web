@@ -8,7 +8,7 @@ namespace SuperAwesomeCode.DataModel.Entities
 	public sealed class EntityConnectionSettings
 	{
 		/// <summary>Determines if the database is backed by a file, which needs a different connection string.</summary>
-		private bool _IsAttachedDbFile;
+		private bool _isAttachedDbFile;
 
 		/// <summary>Initializes a new instance of the <see cref="EntityConnectionSettings"/> class.</summary>
 		/// <param name="providerName">Name of the provider.</param>
@@ -22,7 +22,7 @@ namespace SuperAwesomeCode.DataModel.Entities
 			this.DatabaseName = databaseName;
 			this.MetaDataRes = metaDataRes;
 
-			this._IsAttachedDbFile = this.DatabaseName.StartsWith("|DataDirectory|", StringComparison.OrdinalIgnoreCase);
+			this._isAttachedDbFile = this.DatabaseName.StartsWith("|DataDirectory|", StringComparison.OrdinalIgnoreCase);
 		}
 
 		/// <summary>Gets the name of the provider.</summary>
@@ -47,7 +47,7 @@ namespace SuperAwesomeCode.DataModel.Entities
 			// Initialize the connection string builder for the underlying provider.
 			SqlConnectionStringBuilder sqlBuilder;
 
-			if (this._IsAttachedDbFile)
+			if (this._isAttachedDbFile)
 			{
 				sqlBuilder = new SqlConnectionStringBuilder()
 				{

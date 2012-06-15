@@ -9,14 +9,14 @@ namespace SuperAwesomeCode
 	public class IoC : IDisposable
 	{
 		/// <summary>Ninject Kernel.</summary>
-		private IKernel _Kernel;
+		private IKernel _kernel;
 
 		/// <summary>Initializes a new instance of the <see cref="IoC"/> class.</summary>
 		/// <param name="settings">Settings to use for the kernel or null.</param>
 		/// <param name="modules">>Modules to use for the kernel or null</param>
 		public IoC(INinjectSettings settings = null, params INinjectModule[] modules)
 		{
-			this._Kernel = new StandardKernel(settings ?? new NinjectSettings(), modules.Where(i => i != null).ToArray());
+			this._kernel = new StandardKernel(settings ?? new NinjectSettings(), modules.Where(i => i != null).ToArray());
 		}
 
 		/// <summary>Use to resolve a type by using IoC.</summary>
@@ -24,7 +24,7 @@ namespace SuperAwesomeCode
 		/// <returns>Object of type T.</returns>
 		public T Resolve<T>()
 		{
-			return this._Kernel.Get<T>();
+			return this._kernel.Get<T>();
 		}
 
 		/// <summary>Use to resolve a type by using IoC.</summary>
@@ -32,7 +32,7 @@ namespace SuperAwesomeCode
 		/// <returns>Object of the given type.</returns>
 		public object Resolve(Type type)
 		{
-			return this._Kernel.Get(type);
+			return this._kernel.Get(type);
 		}
 
 		/// <summary>Release's an object bound in IoC.</summary>
@@ -40,14 +40,14 @@ namespace SuperAwesomeCode
 		/// <returns>True if the object was released, otherwise fale.</returns>
 		public bool Release(object instance)
 		{
-			return this._Kernel.Release(instance);
+			return this._kernel.Release(instance);
 		}
 
 		/// <summary>Disposes the IoC.</summary>
 		public void Dispose()
 		{
-			this._Kernel.Dispose();
-			this._Kernel = null;
+			this._kernel.Dispose();
+			this._kernel = null;
 		}
 	}
 }

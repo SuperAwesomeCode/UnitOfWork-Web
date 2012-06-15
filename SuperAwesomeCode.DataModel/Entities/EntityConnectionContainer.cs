@@ -9,10 +9,10 @@ namespace SuperAwesomeCode.DataModel.Entities
 	public sealed class EntityConnectionContainer
 	{
 		/// <summary>Cached constructor info of the EntityConnection.</summary>
-		private ConstructorInfo _ConstructorInfo;
+		private ConstructorInfo _constructorInfo;
 
 		/// <summary>EntitySettings used to create the connection.</summary>
-		private EntityConnectionSettings _Settings;
+		private EntityConnectionSettings _settings;
 
 		/// <summary>Prevents a default instance of the <see cref="EntityConnectionContainer"/> class from being created.</summary>
 		private EntityConnectionContainer()
@@ -29,8 +29,8 @@ namespace SuperAwesomeCode.DataModel.Entities
 				throw new ArgumentException(string.Format("{0} is not an ObjectContext.", objectContextType.FullName));
 			}
 
-			this._Settings = settings;
-			this._ConstructorInfo = objectContextType.GetConstructor(new Type[] { typeof(EntityConnection) });
+			this._settings = settings;
+			this._constructorInfo = objectContextType.GetConstructor(new Type[] { typeof(EntityConnection) });
 
 			this.ObjectContextType = objectContextType;
 		}
@@ -66,7 +66,7 @@ namespace SuperAwesomeCode.DataModel.Entities
 		/// <returns></returns>
 		public ObjectContext GetObjectContext()
 		{
-			return this._ConstructorInfo.Invoke(new object[] { this._Settings.BuildConnection() }) as ObjectContext;
+			return this._constructorInfo.Invoke(new object[] { this._settings.BuildConnection() }) as ObjectContext;
 		}
 	}
 }
