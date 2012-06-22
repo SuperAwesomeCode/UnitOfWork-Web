@@ -69,7 +69,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\BatchedEntityDataContext.cs" />
+    <Compile Include="Entities\IObjectContextOrchestrator.cs" />
+    <Compile Include="Entities\ObjectContextOrchestrator.cs" />
     <Compile Include="Entities\EntityDataModule.cs" />
     <Compile Include="Entities\EntityConnectionContainer.cs" />
     <Compile Include="Entities\EntityConnectionSettings.cs" />

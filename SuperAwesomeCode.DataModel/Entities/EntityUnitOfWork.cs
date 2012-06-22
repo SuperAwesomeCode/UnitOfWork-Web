@@ -8,18 +8,18 @@ namespace SuperAwesomeCode.DataModel.Entities
 	/// <summary>Class which Implements of IUnitOfWork for Entities repositories.</summary>
 	internal sealed class EntityUnitOfWork : IUnitOfWork
 	{
-		/// <summary>BatchedEntityDataContext for this unit of work.</summary>
-		private BatchedEntityDataContext _batchedEntityDataContext;
+		/// <summary>IObjectContextOrchestrator for this unit of work.</summary>
+		private IObjectContextOrchestrator _objectContextOrchestrator;
 
 		/// <summary>Dictionary of Repositories.</summary>
 		private Dictionary<Type, object> _repositories;
 
 		/// <summary>Initializes a new instance of the <see cref="EntityUnitOfWork"/> class.</summary>
-		/// <param name="batchedDataContext">The batched data context.</param>
-		public EntityUnitOfWork(BatchedEntityDataContext batchedDataContext)
+		/// <param name="objectContextOrchestrator">The object context orchestrator.</param>
+		public EntityUnitOfWork(IObjectContextOrchestrator objectContextOrchestrator)
 		{
-			Guard.AgainstNull(batchedDataContext);
-			this._batchedEntityDataContext = batchedDataContext;
+			Guard.AgainstNull(objectContextOrchestrator);
+			this._objectContextOrchestrator = objectContextOrchestrator;
 			this._repositories = new Dictionary<Type, object>();
 		}
 
@@ -28,7 +28,7 @@ namespace SuperAwesomeCode.DataModel.Entities
 		/// <returns></returns>
 		public bool HasRepository<TEntityType>() where TEntityType : class
 		{
-			return this._batchedEntityDataContext.GetObjectContext<TEntityType>() != null;
+			return this._objectContextOrchestrator.GetObjectContext<TEntityType>() != null;
 		}
 
 		/// <summary>Retrieves a Repository for the given type.</summary>
@@ -38,24 +38,24 @@ namespace SuperAwesomeCode.DataModel.Entities
 		{
 			if (!this._repositories.ContainsKey(typeof(TEntityType)))
 			{
-				this._repositories.Add(typeof(TEntityType), new GenericEntityRepository<TEntityType>(this._batchedEntityDataContext.GetObjectContext<TEntityType>()));
+				this._repositories.Add(typeof(TEntityType), new GenericEntityRepository<TEntityType>(this._objectContextOrchestrator.GetObjectContext<TEntityType>()));
 			}
 
-			return this._repositories[typeof(TEntityType)] as GenericEntityRepository<TEntityType>;
+			return this._repositories[typeof(TEntityType)] as IRepository<TEntityType>;
 		}
 
 		/// <summary>Saves the unit of work.</summary>
 		public void Save()
 		{
-			this._batchedEntityDataContext.Save();
+			this._objectContextOrchestrator.Save();
 		}
 
 		/// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
 		public void Dispose()
 		{
-			if (this._batchedEntityDataContext != null)
+			if (this._objectContextOrchestrator != null)
 			{
-				this._batchedEntityDataContext.Dispose();
+				this._objectContextOrchestrator.Dispose();
 			}
 		}
 	}

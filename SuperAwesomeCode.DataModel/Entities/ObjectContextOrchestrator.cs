@@ -6,15 +6,15 @@ using System.Transactions;
 
 namespace SuperAwesomeCode.DataModel.Entities
 {
-	/// <summary>A classed used to manage all of the data contexts.</summary>
-	internal sealed class BatchedEntityDataContext : IDisposable
+	/// <summary>A class used to orchestrate a group of ObjectContexts.</summary>
+	internal sealed class ObjectContextOrchestrator : IObjectContextOrchestrator
 	{
 		/// <summary>Dictionary of ObjectContext(es).</summary>
 		private Dictionary<EntityConnectionContainer, ObjectContext> _dictionary;
 
-		/// <summary>Initializes a new instance of the <see cref="BatchedEntityDataContext"/> class.</summary>
+		/// <summary>Initializes a new instance of the <see cref="ObjectContextOrchestrator"/> class.</summary>
 		/// <param name="entityConnectionContainers">The entity connection containers.</param>
-		public BatchedEntityDataContext(IEnumerable<EntityConnectionContainer> entityConnectionContainers)
+		public ObjectContextOrchestrator(IEnumerable<EntityConnectionContainer> entityConnectionContainers)
 		{
 			this._dictionary = new Dictionary<EntityConnectionContainer, ObjectContext>();
 			foreach (var container in entityConnectionContainers)
