@@ -46,5 +46,12 @@ namespace SuperAwesomeCode.DataModel.Entities
 		{
 			this._objectSet.AddObject(entity);
 		}
+
+		/// <summary>Removes the specified entity.</summary>
+		/// <param name="entity">The entity.</param>
+		public void Remove(TEntity entity)
+		{
+			this._objectSet.DeleteObject(entity);
+		}
 	}
 }

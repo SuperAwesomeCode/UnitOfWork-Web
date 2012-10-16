@@ -20,5 +20,9 @@ namespace SuperAwesomeCode.DataModel
 		/// <summary>Adds the specified entity.</summary>
 		/// <param name="entity">The entity.</param>
 		void Add(TEntity entity);
+
+		/// <summary>Removes the specified entity.</summary>
+		/// <param name="entity">The entity.</param>
+		void Remove(TEntity entity);
 	}
 }

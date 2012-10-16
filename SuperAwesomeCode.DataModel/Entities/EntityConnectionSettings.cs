@@ -15,12 +15,22 @@ namespace SuperAwesomeCode.DataModel.Entities
 		/// <param name="serverName">Name of the server.</param>
 		/// <param name="databaseName">Name of the database.</param>
 		/// <param name="metaDataRes">The meta data res.</param>
-		public EntityConnectionSettings(string providerName, string serverName, string databaseName, string metaDataRes)
+		/// <param name="userId">The user id.</param>
+		/// <param name="password">The password.</param>
+		public EntityConnectionSettings(
+			string providerName, 
+			string serverName, 
+			string databaseName, 
+			string metaDataRes, 
+			string userId = null, 
+			string password = null)
 		{
 			this.ProviderName = providerName;
 			this.ServerName = serverName;
 			this.DatabaseName = databaseName;
 			this.MetaDataRes = metaDataRes;
+			this.UserId = userId;
+			this.Password = password;
 
 			this._isAttachedDbFile = this.DatabaseName.StartsWith("|DataDirectory|", StringComparison.OrdinalIgnoreCase);
 		}
@@ -40,6 +50,12 @@ namespace SuperAwesomeCode.DataModel.Entities
 		/// <summary>Gets the meta data res.</summary>
 		public string MetaDataRes { get; private set; }
 
+		/// <summary>Gets the user id.</summary>
+		public string UserId { get; private set; }
+
+		/// <summary>Gets the password.</summary>
+		public string Password { get; private set; }
+
 		/// <summary>Builds the connection.</summary>
 		/// <returns></returns>
 		internal EntityConnection BuildConnection()
@@ -57,13 +73,24 @@ namespace SuperAwesomeCode.DataModel.Entities
 					UserInstance = true //Not sure if this is needed.
 				};
 			}
-			else
+			else if (string.IsNullOrEmpty(this.UserId))
 			{
 				sqlBuilder = new SqlConnectionStringBuilder()
 				{
 					DataSource = this.ServerName,
 					InitialCatalog = this.DatabaseName,
 					IntegratedSecurity = true,
+				};
+			}
+			else
+			{
+				sqlBuilder = new SqlConnectionStringBuilder()
+				{
+					DataSource = this.ServerName,
+					InitialCatalog = this.DatabaseName,
+					PersistSecurityInfo = true,
+					UserID = this.UserId,
+					Password = this.Password
 				};
 			}
 

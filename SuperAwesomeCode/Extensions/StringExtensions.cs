@@ -125,5 +125,22 @@ namespace System
 		{
 			return EnumExtensions.ToEnum<T>(fieldValue, defaultValue);
 		}
+
+		/// <summary>Splits and Trims a string value.</summary>
+		/// <param name="value">Value to split and trim.</param>
+		/// <param name="delimiters">Delimters to split by.</param>
+		/// <returns>Enumeration of strings.</returns>
+		public static IEnumerable<string> SplitAndTrim(this string value, params string[] delimiters)
+		{
+			if (string.IsNullOrWhiteSpace(value))
+			{
+				return new List<string>();
+			}
+
+			return value.Split(delimiters, StringSplitOptions.RemoveEmptyEntries)
+					.ToList()
+					.Select(i => i.Trim())
+					.Where(i => !string.IsNullOrWhiteSpace(i));
+		}
 	}
 }

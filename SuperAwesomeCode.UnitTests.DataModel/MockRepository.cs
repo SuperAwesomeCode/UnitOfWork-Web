@@ -28,5 +28,10 @@ namespace SuperAwesomeCode.UnitTests.DataModel
 		{
 			this.Collection.Add(entity);
 		}
+
+		public void Remove(TEntity entity)
+		{
+			this.Collection.Remove(entity);
+		}
 	}
 }
